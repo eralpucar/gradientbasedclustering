@@ -192,11 +192,21 @@ def plot_on_ax(ax, curves_a, label_a, color_a,
             alpha=0.15,
         )
 
-    # margin ekle
+        # add final score as a text
+        ax.text(
+            iters[-1] + 2,
+            mean[-1],
+            f"{mean[-1]*100:.1f}%",
+            color=color,
+            fontsize=9,
+            verticalalignment='center',
+        )
+
+    """# margin ekle
     y_min = max(0.0, global_min - 0.05)
     y_max = min(1.0, global_max + 0.05)
 
-    ax.set_ylim(y_min, y_max)
+    ax.set_ylim(y_min, y_max)"""
 
     ax.set_title(title, fontsize=10)
     ax.set_xlabel('İterasyon')
@@ -268,7 +278,7 @@ def experiment_fig1_fig2(dataset: str = 'mnist',
         title=f'Fig {fig_no}: {dataset.upper()} — Gradient K-means vs K-means',
     )
     plt.tight_layout()
-    path = f'outputs/fig{fig_no}_{dataset}.png'
+    path = f'output/fig{fig_no}_{dataset}.png'
     plt.savefig(path, dpi=150, bbox_inches='tight')
     print(f"Kaydedildi: {path}")
     plt.show()
@@ -343,6 +353,7 @@ def experiment_fig3_fig4(dataset:  str = 'mnist',
                 ped_curve = run_pediredla(X, y, init_centers, K, delta, max_iter)
                 all_ped.append(ped_curve)
             print()
+            
 
 
             plot_on_ax(
@@ -357,7 +368,7 @@ def experiment_fig3_fig4(dataset:  str = 'mnist',
             )
 
     plt.tight_layout()
-    path = f'outputs/fig{fig_no}_{dataset}.png'
+    path = f'output/fig{fig_no}_{dataset}.png'
     plt.savefig(path, dpi=150, bbox_inches='tight')
     print(f"Kaydedildi: {path}")
     plt.show()
